@@ -211,13 +211,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void transitionToPassengerActivity()
     {
-/*        if (ParseUser.getCurrentUser() != null)
+        if (ParseUser.getCurrentUser() != null)
         {
             if (ParseUser.getCurrentUser().get("as").equals("Passenger"))
             {
                 Intent intent = new Intent (MainActivity.this, PassengerActivity.class);
                 startActivity(intent);
             }
-        }*/
+        }
     }
 }
