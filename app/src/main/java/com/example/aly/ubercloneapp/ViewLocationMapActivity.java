@@ -66,6 +66,8 @@ public class ViewLocationMapActivity extends FragmentActivity implements OnMapRe
                         {
                             for (ParseObject object : carRequest)
                             {
+                                object.put("requestAccepted", true);
+
                                 object.put("myDriver", ParseUser.getCurrentUser().getUsername());
 
                                 object.saveInBackground(new SaveCallback()
