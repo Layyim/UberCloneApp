@@ -9,11 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.ParseAnonymousUtils;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -39,10 +41,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setTitle("Uber Clone");
 
+        ParseInstallation.getCurrentInstallation().saveInBackground();
         if (ParseUser.getCurrentUser() != null)
         {
             //ParseUser.logOut();
             transitionToPassengerActivity();
+            transistionToDriverRequestListActivity();
         }
 
         editUserName = findViewById(R.id.editUserName);
@@ -97,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                 + " signed up successfully", Toast.LENGTH_SHORT).show();
 
                                 transitionToPassengerActivity();
+                                transistionToDriverRequestListActivity();
                             }
                         }
                     });
@@ -117,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                         + " logged in successfully", Toast.LENGTH_SHORT).show();
 
                                         transitionToPassengerActivity();
+                                        transistionToDriverRequestListActivity();
                                     }
                                 }
                             });
@@ -189,6 +195,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     if (e == null)
                                     {
                                         transitionToPassengerActivity();
+                                        transistionToDriverRequestListActivity();
                                     }
                                 }
                             });
@@ -216,6 +223,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (ParseUser.getCurrentUser().get("as").equals("Passenger"))
             {
                 Intent intent = new Intent (MainActivity.this, PassengerActivity.class);
+                startActivity(intent);
+            }
+        }
+    }
+
+    private void transistionToDriverRequestListActivity()
+    {
+        if (ParseUser.getCurrentUser() != null)
+        {
+            if (ParseUser.getCurrentUser().get("as").equals("Driver"))
+            {
+                Intent intent = new Intent(this, DriverRequestListActivity.class);
                 startActivity(intent);
             }
         }
